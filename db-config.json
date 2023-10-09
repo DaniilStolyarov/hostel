@@ -1,6 +1,6 @@
 {
     "host" : "localhost",
-    "database" : "app_database",
+    "database" : "hostel_database",
     "user" : "postgres",
     "password" : "postgres"
 }

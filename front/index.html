@@ -84,7 +84,7 @@
                     </div>
                 </nav>
                 <section class="feed-list">
-                    <header>Недавние</header>
+                    <header>Лента новостей</header>
                 </section>
             </div>
             <div class="topic-container">
@@ -231,7 +231,7 @@
             <div id="apply-container">
                 <input type="text" maxlength="64" id="apply-title" placeholder="Заголовок">
                 <div id="apply-form"></div>
-                <button type="button" id="submit-apply">Oпубликовать</button>
+                <button type="button" id="submit-apply">Отправить</button>
             </div>
             <div id="profile-container">
                 <div id="profile">
@@ -265,24 +265,7 @@
                             <label for="">Дата рождения</label>
                             <input type="date" name="birthdate">
                         </div>
-                        <div class="input-group">
-                            <label for="">Страна</label>
-                            <select name="country" id="country-options">
-                                <option value="null">Не выбрана</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="">Город</label>
-                            <select name="city" id="city-options">
-                                <option value="null">Не выбран</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="">Гражданство</label>
-                            <select name="citizenship" id="gr-options">
-                                <option value="null">Не выбрано</option>
-                            </select>
-                        </div>
+                        
                         <div class="input-group">
                             <label for="">Пол</label>
                             <select name="sex" id="sex-options">
@@ -291,47 +274,9 @@
                                 <option value="Женский">Женский</option>
                             </select>
                         </div>
-                        <div class="input-group">
-                            <label for="">ВУЗ</label>
-                            <input type="text" name="hee"></input>
-                        </div>
-                        <div class="input-group">
-                            <label for="">Специальность ВУЗа</label>
-                            <input type="text" name="speciality">
-                        </div>
-                        <div class="input-group">
-                            <label for="">Год окончания ВУЗа</label>
-                            <input type="number" min="1900" max="2099" step="1" value="2022" name="graduation">
-                        </div>
-                        <div class="input-group">
-                            <label for="">Занятость</label>
-                            <select name="occupation" id="occupation-options">
-                                <option value="без работы">без работы</option>
-                                <option value="на себя">на себя</option>
-                                <option value="по найму">по найму</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="">Опыт работы, лет</label>
-                            <input type="number" min="0" max="80" step="1" value="0" name="experience">
-                        </div>
-                        <div class="input-group">
-                            <label for="">Номер патента, если есть</label>
-                            <input type="text" name="patent">
-                        </div>
-                        <div class="input-group">
-                            <label for="">Владелец компании</label>
-                            <select name="company" id="">
-                                <option value="no">Нет</option>
-                                <option value="yes">Да</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label for="">ИНН (если есть компания)</label>
-                            <input type="text" name="inn">
-                        </div>
+                        
                         <div class="input-group" id="user-description">
-                            <label for="">Навыки, достижения (макс. 100 символов)</label>
+                            <label for="">О себе (макс. 100 символов)</label>
                             <textarea name="description" ></textarea>
                         </div>
                         <button>Сохранить</button>

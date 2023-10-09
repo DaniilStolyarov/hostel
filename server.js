@@ -105,11 +105,13 @@ app.post('/update-user-data', formidable(), async (req, res) =>
                 throw new Error('ОШЫБКА')
             }
         }
+        
         if (!userInfo.authKey) return;
+        
         const id = (await db.getUserBySession(userInfo.authKey)).rows[0].user_id;
         userInfo.id = id;
         const result = await db.updateUserInfo(userInfo);
-
+        
         
     } catch (err)
     {

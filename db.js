@@ -30,46 +30,20 @@ async function createUsersTable() // не используется вне это
         SURNAME TEXT,
         PATRONYMIC TEXT,
         BIRTHDATE DATE,
-        COUNTRY TEXT,
-        CITY TEXT,
-        CITIZENSHIP TEXT,
         SEX TEXT,
-        HEE TEXT,
-        HEE_SPECIALITY TEXT,
-        HEE_GRADUATION TEXT,
-        OCCUPATION_STATUS TEXT,
-        EXPERIENCE TEXT,
-        PATENT TEXT,
-        COMPANY_OWNER TEXT,
-        INN TEXT
+        ROOM BIGINT
     )`)
 }
-async function createGroupsTable() // не используется вне этого файла
+async function createApplicationsTable() // не используется вне этого файла
 {
-    await client.query(`create table groups
+    await client.query(`create table applications
     (
-        GROUP_ID BIGSERIAL PRIMARY KEY,
+        APPLICATION_ID BIGSERIAL PRIMARY KEY,
         TIMESTAMP TIMESTAMP WITHOUT TIME ZONE,
         NAME TEXT UNIQUE,
         DESCRIPTION TEXT,
-        AUTHOR_ID BIGINT            
-    )`)
-}
-async function createGroupLinkTable()
-{
-    await client.query(`create table grouplinks
-    (
-        GROUP_ID BIGINT,
-        GROUP_LINK UUID UNIQUE
-    )`)
-}
-async function createGroupMembersTable() // не используется вне этого файла
-{
-    await client.query(`create table groupmembers
-    (
-        USER_ID BIGINT,
-        GROUP_ID BIGINT,
-        ROLE_PRIOR SMALLINT        
+        AUTHOR_ID BIGINT,
+        IS_OPENED BOOLEAN        
     )`)
 }
 async function createMessagesTable() // не используется вне этого файла
@@ -79,7 +53,7 @@ async function createMessagesTable() // не используется вне э�
         AUTHOR_ID BIGINT,
         CONTENT TEXT,
         TIMESTAMP TIMESTAMP WITHOUT TIME ZONE,
-        GROUP_ID BIGINT,
+        APPLICATION_ID BIGINT,
         MESSAGE_ID BIGSERIAL PRIMARY KEY       
     )`)
 }
@@ -96,9 +70,7 @@ async function initDatabase() // не используется вне этого
     return Promise.all(
         [
             createUsersTable(),
-            createGroupsTable(),
-            createGroupMembersTable(), 
-            createGroupLinkTable(),
+            createApplicationsTable(),
             createMessagesTable(),
             createConnectionsTable(),
             createExtension()
@@ -108,126 +80,85 @@ async function selectFrom(tableName) // не используется вне э�
 {
     return await client.query(`select * from ${tableName.toString()}`);
 }
-async function addUser({email, admin = false, password, name, phoneNum, telegram, description = "empty", avatar_id})
+async function addUser({email, admin = false, password, phoneNum, telegram, description = "empty", avatar_id,
+ room, name, surname, patronymic
+})
 {
     return await client.query(`insert into users 
     (   
-        EMAIL,
-        ADMIN,
-        TIMESTAMP,
-        PASSWORD,
-        NICKNAME,
-        PHONE_NUMBER,
-        TELEGRAM,
-        USER_DESCRIPTION,
-        AVATAR_ID
+        EMAIL, ADMIN, TIMESTAMP,
+        PASSWORD, PHONE_NUMBER, TELEGRAM, USER_DESCRIPTION, AVATAR_ID,
+        ROOM, NAME, SURNAME, PATRONYMIC
     ) values
     (
-        $1::text, $2::boolean, $3::timestamp without time zone, $4::text, $5::text, $6::text, $7::text, $8::text, $9::text
-    )`, [email, admin, new Date (Date.now()).toLocaleString(), password, name, phoneNum, telegram, description, avatar_id])
+        $1::text, $2::boolean, $3::timestamp without time zone, 
+        $4::text, $5::text, $6::text, $7::text, $8::text, 
+        $9::bigint, $10::text, $11::text, $12::text
+    )`, 
+    [
+        email, admin, new Date (Date.now()).toLocaleString(),
+        password, phoneNum, telegram, description, avatar_id,
+        room, name, surname, patronymic
+    ])
 }
-async function addGroup(title, content, author_id)
+async function addApplication(title, content, author_id)
 {
     try
     {
-        return client.query(`insert into groups
+        return client.query(`insert into applications
         (
             TIMESTAMP,
             NAME,
             DESCRIPTION,
-            AUTHOR_ID      
+            AUTHOR_ID,
+            IS_OPENED    
         ) values
         (
             $1::TIMESTAMP WITHOUT TIME ZONE,
             $2::text,
             $3::text,
-            $4::bigint
-        ) RETURNING GROUP_ID`, [new Date (Date.now()).toLocaleString(), title, content, author_id])
+            $4::bigint,
+            $5::boolean
+        ) RETURNING APPLICATION_ID`, [new Date (Date.now()).toLocaleString(), title, content, author_id, true])
     }
     catch(err)
     {
         console.log(err)
     }
 }
-async function addGroupMember(group_id, key, rolePrior)
-{
-    return client.query(`insert into groupmembers 
-    (
-        group_id,
-        user_id,
-        role_prior
-    ) values
-    (
-        $1::BIGINT,
-        (select user_id from connections where session = $2::uuid),
-        $3::SMALLINT
-    )`, [group_id, key, rolePrior])  
-}
-async function getGroupMemberByAuthorID(id)
-{
-    return client.query('select * from groupmembers where user_id = $1::bigint', [id]);
-}
-async function getLeaderGroup(key)
-{
-    return client.query('select * from groups where author_id = (select user_id from connections where session = $1::uuid)', [key]);
-}
-async function getLeaderByGroupID(id)
-{
-    return client.query('select group_id from groups where author_id = $1::bigint', [id])
-}
-async function addMessage(author_id, group_id, content)
+
+
+async function addMessage(author_id, application_id, content)
 {
     return client.query(`insert into messages
     (
         AUTHOR_ID,
         CONTENT,
         TIMESTAMP,
-        GROUP_ID
+        APPLICATION_ID
     ) values
     (
         $1::bigint,
         $2::text,
         $3::TIMESTAMP WITHOUT TIME ZONE,
         $4::bigint
-    )`, [author_id, content, new Date (Date.now()).toLocaleString(), group_id])
+    )`, [author_id, content, new Date (Date.now()).toLocaleString(), application_id])
 }
-async function addGroupLink(id)
+
+async function getApplicationById(id)
 {
-    return client.query(`insert into grouplinks 
-    (
-        group_id,
-        group_link
-    ) values
-    (
-        $1::bigint,
-        uuid_generate_v4()
-    ) RETURNING group_link`, [id])
+    return client.query('select * from applications where application_id = $1::bigint', [id]);
 }
-async function getGroupByLink(key)
+/*
+async function getNews()
 {
-    return client.query(`select name, author_id, group_id from groups where group_id = (select group_id from grouplinks where group_link = $1::uuid)`, [key]);
-}
-async function getTeamById(group_id) // team - все участники данной group
-{
-    return client.query(`select nickname, avatar_id, user_id from users where user_id = ANY(select user_id from groupmembers 
-        where group_id = $1::bigint)`, [group_id])
-}
-async function getRolePrior(group_id, user_id)
-{
-    return client.query('select role_prior from groupmembers where group_id = $1::bigint and user_id = $2::bigint', [group_id, user_id]);
-}
-async function getTopicById(id)
-{
-    return client.query('select * from groups where group_id = $1::bigint', [id]);
-}
-async function getLastTopics()
-{
-    return client.query('select * from groups')
+    return client.query('select * from news')
 }
 async function getTopicTitles()
 {
-    return client.query('select name, group_id, timestamp from groups')
+    return client.query('select name, group_id, timestamp from news')
 }
+*/
 async function getUserById(id)
 {
     return client.query('select * from users where user_id = $1::bigint', [id]);
@@ -251,11 +182,11 @@ async function upsertConnection(user_id)
 }
 async function getLastGroup()
 {
-    return client.query('SELECT * FROM GROUPS ORDER BY group_id DESC LIMIT 1');
+    return client.query('SELECT * FROM APPLICATIONS ORDER BY application_id DESC LIMIT 1');
 }
-async function getMessagesByTopicId(group_id)
+async function getMessagesByTopicId(application_id)
 {
-    return client.query('SELECT * FROM MESSAGES WHERE GROUP_ID = $1::BIGINT', [group_id])
+    return client.query('SELECT * FROM MESSAGES WHERE APPLICATION_ID = $1::BIGINT', [application_id])
 }
 async function updateUserInfo(userInfo)
 {
@@ -264,31 +195,20 @@ async function updateUserInfo(userInfo)
     SURNAME = $2::TEXT,
     PATRONYMIC = $3::TEXT,
     BIRTHDATE = $4::DATE,
-    COUNTRY = $5::TEXT,
-    CITY = $6::TEXT,
-    SEX = $7::TEXT,
-    HEE = $8::TEXT,
-    HEE_SPECIALITY = $9::TEXT,
-    HEE_GRADUATION = $10::TEXT,
-    OCCUPATION_STATUS = $11::TEXT,
-    EXPERIENCE = $12::TEXT,
-    PATENT = $13::TEXT,
-    COMPANY_OWNER = $14::TEXT,
-    INN = $15::TEXT,
-    USER_DESCRIPTION = $16::TEXT,
-    CITIZENSHIP = $17::TEXT
-    WHERE USER_ID = $18::BIGINT`
-    , [userInfo.name, userInfo.surname, userInfo.patronymic, userInfo.birthdate, userInfo.country, userInfo.city, userInfo.sex, userInfo.hee, userInfo.speciality, userInfo.graduation, 
-        userInfo.occupation, userInfo.experience, userInfo.patent, userInfo.company, userInfo.inn, userInfo.description, userInfo.citizenship, +userInfo.id])
+    SEX = $5::TEXT,
+    USER_DESCRIPTION = $6::TEXT,
+    ROOM = $7::BIGINT
+    WHERE USER_ID = $8::BIGINT`
+    , [userInfo.name, userInfo.surname, userInfo.patronymic, userInfo.birthdate, userInfo.sex, userInfo.description, userInfo.room, +userInfo.id])
 }
 module.exports =
 {
-    getTopicById, getUserByEmail, getUserById, addUser, getUserBySession, addGroup, addGroupMember, addGroupLink, getTeamById, getLeaderGroup, getAuthKey, updateUserInfo, upsertConnection, getLastGroup, 
-    addMessage, getMessagesByTopicId, getLastTopics, getTopicTitles, getRolePrior, getGroupByLink, getLeaderByGroupID, getGroupMemberByAuthorID
+    getApplicationById, getUserByEmail, getUserById, addUser, getUserBySession, addApplication, getAuthKey, updateUserInfo, upsertConnection, getLastGroup, 
+    addMessage, getMessagesByTopicId, /*getLastTopics, getTopicTitles,*/ 
 }
 if (process.argv[2] == 'initAll')
 {
-    client.query('drop table users, connections, groups, groupmembers, messages, groupLinks').finally(() =>
+    client.query('drop table users, connections, applications, messages').finally(() =>
     {
         client.query('drop extension "uuid-ossp"').then(() =>
         {
