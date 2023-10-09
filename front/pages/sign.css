@@ -1,0 +1,210 @@
+#sign-container, #login-container
+{
+    height: 100%;
+    border: 1px solid transparent;
+}
+#sign-focus, #login-focus
+{
+    width: 450px;
+    height: calc(100% - 150px);
+    margin: 75px auto;
+    background-color: var(--slight);
+    border-top: 1px solid transparent;
+    border-radius: 5px;
+}
+#sign-focus .form, #login-focus .form
+{
+    overflow: hidden;
+    position: relative;
+    width: calc(100% - 60px);
+    height: calc(100% - 60px);
+    margin: 30px;
+    background-color: var(--slight);
+
+}
+#sign-focus section
+{
+    display: none;   
+}
+#sign-focus section.active
+{
+    display: block  ;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: relative;
+    height: 100%;
+}
+#sign-focus .avatar-preview, #login-focus .avatar-preview
+{
+    height: 30%;
+    background-image: url("/images/icons/android-icon-144x144.png");
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-position-x: center;
+    background-position-y: start;
+
+    margin: 5%;
+}
+#sign-focus *[type = "file"]
+{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    position: absolute;
+    z-index: -10;
+}
+#sign-focus .input-avatar
+{
+    height: 35%;
+    margin: 5%;
+    margin-bottom: 0;
+    overflow: visible;
+}
+#sign-focus label[for = "input-file"].avatar-1
+{
+    display: block;
+    background-image: url("/images/icons/android-icon-144x144.png");
+    width:  100px;
+    height: 100px;
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    
+}
+#sign-focus label.avatar-2
+{
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    font-weight: 300;
+    color: var(--color30);
+    border: 2px solid var(--color30);
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+#sign-focus div.input-field, #login-focus div.input-field
+{
+    width: 100%;
+    height: 4em;
+    margin: 0 0 20px;
+    position: relative;
+}
+#sign-focus div.input-field input, #login-focus div.input-field input
+{
+    border-bottom: 1.5px solid var(--color30);
+    display: block;
+    width: 90%;
+    margin: 1.5em auto 0;
+    font-size: 18px;
+    background-color: var(--slight);
+    color: white;
+    padding: 3px 5px;
+}
+#sign-focus div.input-field input:focus, #login-focus div.input-field input:focus
+{
+    border-bottom-width: 2px;
+}
+#sign-focus div.input-field label, #login-focus div.input-field label
+{
+    color: rgba(255, 255, 255, 0.788);
+    position: absolute;
+    top:0;
+    left: 0;
+    margin-left: 5%;
+    font-weight: 100;
+    margin-top: -1.1em;
+}
+#sign-focus button.input-submit, #login-focus button.input-submit
+{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 10px;
+    margin: 0 5% 5% 0;
+    background-color: var(--color30);
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: 14px;
+}
+#sign-focus .input-prev
+{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: var(--color30);
+    width: 25px;
+    height: 5px;
+    overflow: visible;
+    cursor: pointer;
+}
+#sign-focus .input-prev::before, #sign-focus .input-prev::after
+{
+    display: block;
+    content: " ";
+    background-color: var(--color30);
+    width: 65%;
+    height: 5px;
+    position: absolute;
+    border-radius: 999px 0 0 999px;
+}
+#sign-focus .input-prev::before
+{
+    transform: rotate(45deg);
+    margin-left: -10%;
+    margin-top: 10%;
+}
+#sign-focus .input-prev::after
+{
+    margin-top: -30%;
+    margin-left: -10%;
+    transform: rotate(-45deg);
+}
+#sign-title
+{
+    color: var(--color30);
+    border: 2px solid var(--color30);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0 0 5% 5%;
+}
+@media screen and (max-device-aspect-ratio : 21 / 18)
+{
+
+    #sign-focus, #login-focus
+    {
+        height: 65%;
+        width: 100%;
+        margin: 10px 0;
+    }
+    #sign-focus .form, #login-focus .form
+    {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+    }
+    #sign-focus section.active
+    {
+        width: 100%;
+        height: 100%;
+    }
+    #sign-focus .input-avatar
+    {
+        margin-right: 0;
+        margin-left: 0;
+        width: 100%;
+        height: 35%;
+    }
+    #sign-focus .avatar-preview
+    {
+        height: 35%;
+    }
+}

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/images/icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+        <link rel="manifest" href="/images/icons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/images/icons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+        <script src = "/lib/socket-io/socket.io.min.js"></script>
+        <script src = "/lib/cookie-js/cookie.js"></script>
+        <script>window.socket = io()</script>
+        <script src = "/scripts/socket-events.js"></script>
+        <script src = "/scripts/toggle-pages.js"></script>
+        <script src = "/scripts/ui.js"></script>
+        <link rel="stylesheet" href="/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>МыслЯ</title>
+    </head>
+    <body>
+        <div id = "hide-all" class="active">
+            <div class = "loading-ico">
+            </div>
+        </div>
+        <nav id="navbar-container">
+            <a id="main-title" href="/">
+                <div class="icon"></div> 
+                <div class="text">МыслЯ</div> 
+            </a>
+            <section id="nav-group">
+                <a id="apply-nav-title" href="/apply">
+                </a>
+                <a id="login-title" class="active" href="/login">
+                    <div class="text">Вход</div>    
+                </a>
+                <a id="profile-trigger" href="/profile">
+                </a>
+            </section>
+        </nav>
+        <main id="main-container">
+            <div id="confirm-container">
+                <section class="confirm-body">
+                    <div class="confirm-leader">
+                        <div class="confirm-avatar"></div>
+                        <div class="confirm-nickname">Danya</div>
+                    </div>
+                    <p>приглашает вас присоединиться к идее </p>
+                    <p class="confirm-group-title">"EFBO-01-22"</p>
+                    <button>Вступить в команду</button>
+                </section>
+            </div>
+            <div id="team-container">
+                <div class="team">
+                    <header>Название команды</header>
+                    <section class="team-members">
+                    </section>
+                    <button class="team-link">Ссылка-приглашение</button>
+                </div>
+                <div class="users-list"></div>
+            </div>
+            <div id="feed-container">
+                <nav class="search"> 
+                    <div class="search-group">
+                        <label for=""></label>
+                        <input type="search"></button>
+                        <button type="button">Найти</button>
+                    </div>
+                </nav>
+                <section class="feed-list">
+                    <header>Недавние</header>
+                </section>
+            </div>
+            <div class="topic-container">
+                <div class="topic">
+                    <div class="title">Lorem Ipsum</div>
+                    <div class="description">
+                        <div class="info">
+                            <section>
+                                <div class="author-icon"></div>
+                                <div class="author-info">
+                                    <label>Автор</label>
+                                    <div>danst</div>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="date-icon"></div>
+                                <div class="date-info">
+                                    <label>Опубликовано</label>
+                                    <div>21.10.2022</div>
+                                </div>
+                            </section>
+                            <section>
+                                <div class="team-info">
+                                    <label>Команда</label>
+                                    <div>123</div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="text">
+                        </div>
+                    </div>
+                    <button class="toggle-comments-container">Обсуждение</button>
+                </div>
+                <div class="comments">
+                    <header>Обсуждение</header>
+                    <div class="view active">
+                    </div>
+                    <div class="create-comment">
+                        <div class="comment-content" id="myComment"></div>
+                       
+                    </div>
+                    <button class="comment-submit">Отправить</button>
+                    <button class="toggle-view-comments" onclick="toggleCommentsView()">Предложить решение</button>
+                    <button class="disable-comments-container">Назад</button>
+                </div>
+            </div>
+            <div id="sign-container">
+                <form id="sign-focus">
+                    <div class="form">
+                        <section class="active" id="reg-section-1">
+                            <div class="input-avatar">
+                                <input type = "file" id="input-file" accept="image/*" name="avatar">
+                                <label for = "input-file" class="avatar-1"></label>
+                                <label for = "input-file" class="avatar-2">Загрузите аватарку</footer>
+                            </div>
+                            <div class="input-field">
+                                <label for="input-email">Email</label>
+                                <input type="email" id="input-email" name="email">
+                            </div>
+                            <div class="input-field">
+                                <label for="input-name">Никнейм</label>
+                                <input type="text" id="input-name" name="name">
+                            </div>
+                            <button type="button" class="input-submit" onclick="toggleSection(document.querySelector('#reg-section-2'))">Далее</button>
+                        </section>
+                        <section class="active" id="reg-section-2">
+                            <div class="avatar-preview">
+                            </div>
+                            <div class="input-field">
+                                <label for="input-pass">Пароль (лат. буквы, цифры, 8 знаков)</label>
+                                <input type="password" id="input-pass" name="password">
+                            </div>
+                            <div class="input-field">
+                                <label for="input-confirm-pass">Повторите пароль</label>
+                                <input type="password" id="input-confirm-pass" name="password-confirm">
+                            </div>
+                            <button type="button" class="input-submit" onclick="toggleSection(document.querySelector('#reg-section-3'))">Далее</button>
+                            <button type="button" class="input-prev" onclick="toggleSection(document.querySelector('#reg-section-1'))"></button>
+                        </section>
+                        <section class="active" id="reg-section-3">
+                            <div class="avatar-preview">
+                            </div>
+                            <div class="input-field">
+                                <label for="input-telegram">Telegram (можно оставить пустым)</label>
+                                <input type="text" id="input-telegram" name="telegram">
+                            </div>
+                            <div class="input-field">
+                                <label for="input-phone" >Номер телефона (можно оставить пустым)</label>
+                                <input type="tel" id="input-phone" name="phone">
+                            </div>
+                            <button class="input-submit" id="reg-submit">Далее</button>
+                            <button type="button" class="input-prev" onclick="toggleSection(document.querySelector('#reg-section-2'))"></button>
+                        </section>
+                        <script>
+                            function toggleSection(section)
+                            {
+                                [...document.querySelectorAll('#sign-focus section')].forEach(sect =>
+                                {
+                                    sect.classList.remove("active");
+                                })
+                                section.classList.add("active");
+                            }
+                            function toggleCommentsView()
+                            {
+                                const view = document.querySelector('.comments .view')
+                                view.classList.toggle('active');
+                                const button = document.querySelector('.toggle-view-comments');
+                                const submit = document.querySelector('.comments .comment-submit');
+            
+                                document.querySelector('.comments .create-comment').classList.toggle('active');
+                                if (view.classList.contains('active'))
+                                {
+                                    button.textContent = "Предложить решение"
+                                    submit.classList.remove('active');
+                                }
+                                else
+                                {
+                                    submit.classList.add('active');
+                                    button.textContent = "Назад"
+                                }
+                            }
+                        </script>
+                    </div>
+                </form>
+            </div>
+            <div id="login-container">
+                <form id="login-focus">
+                    <div class="form">
+                        <div class="avatar-preview">
+                        </div>
+                        <div class="input-field">
+                            <label for="input-log-email">Email</label>
+                            <input type="email" id="input-log-email" name="email">
+                        </div>
+                        <div class="input-field">
+                            <label for="input-log-pass">Пароль</label>
+                            <input type="password" id="input-log-pass" name="password">
+                        </div>
+                        <a href="/register" id="sign-title">Регистрация</a>
+                        <button class="input-submit" id="log-submit">Далее</button>
+                    </div>
+                </form>
+            </div>
+            <div id="apply-container">
+                <input type="text" maxlength="64" id="apply-title" placeholder="Заголовок">
+                <div id="apply-form"></div>
+                <button type="button" id="submit-apply">Oпубликовать</button>
+            </div>
+            <div id="profile-container">
+                <div id="profile">
+                    <section class="general active">
+                        <div class="avatar"></div>
+                        <div class="email">youremail@mail.ru</div>
+                        <hr>
+                        <div class="name">Your Name</div>
+                        <hr>
+                        <div class="telegram"><div class="telegram-logo"></div> <div class="telegram-text"></div></div>
+                        <hr>
+                        <div class="phone_number"></div>
+                        <hr>
+                        <button id ="logout">Выйти</button>
+                        <button type="button" class="toggleInfo" onclick="toggleProfile()">Перейти к личным данным</button>
+                    </section>
+                    <form class="user-info">
+                        <div class="input-group">
+                            <label for="">Фамилия</label>
+                            <input type="text" name="surname">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Имя</label>
+                            <input type="text" name="name">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Отчество</label>
+                            <input type="text" name="patronymic">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Дата рождения</label>
+                            <input type="date" name="birthdate">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Страна</label>
+                            <select name="country" id="country-options">
+                                <option value="null">Не выбрана</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Город</label>
+                            <select name="city" id="city-options">
+                                <option value="null">Не выбран</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Гражданство</label>
+                            <select name="citizenship" id="gr-options">
+                                <option value="null">Не выбрано</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Пол</label>
+                            <select name="sex" id="sex-options">
+                                <option value="null">Не выбран</option>
+                                <option value="Мужской">Мужской</option>
+                                <option value="Женский">Женский</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="">ВУЗ</label>
+                            <input type="text" name="hee"></input>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Специальность ВУЗа</label>
+                            <input type="text" name="speciality">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Год окончания ВУЗа</label>
+                            <input type="number" min="1900" max="2099" step="1" value="2022" name="graduation">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Занятость</label>
+                            <select name="occupation" id="occupation-options">
+                                <option value="без работы">без работы</option>
+                                <option value="на себя">на себя</option>
+                                <option value="по найму">по найму</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Опыт работы, лет</label>
+                            <input type="number" min="0" max="80" step="1" value="0" name="experience">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Номер патента, если есть</label>
+                            <input type="text" name="patent">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Владелец компании</label>
+                            <select name="company" id="">
+                                <option value="no">Нет</option>
+                                <option value="yes">Да</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="">ИНН (если есть компания)</label>
+                            <input type="text" name="inn">
+                        </div>
+                        <div class="input-group" id="user-description">
+                            <label for="">Навыки, достижения (макс. 100 символов)</label>
+                            <textarea name="description" ></textarea>
+                        </div>
+                        <button>Сохранить</button>
+                        <footer></footer>
+                    </form>
+                </div>
+                <script>
+                    function toggleProfile()
+                    {
+                        document.querySelector('#profile .general').classList.toggle('active');
+                        document.querySelector('#profile .user-info').classList.toggle('active');
+                    }
+                </script>
+            </div>
+        </main>
+    </body>
+</html>

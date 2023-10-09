@@ -1,0 +1,188 @@
+#profile-container
+{
+    width: 100%;
+    height: 100%;
+}
+#profile-container #profile
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+#profile-container .general
+{
+    width: 40%;
+    height: 100%;
+    border-right: 2px solid var(--slight);
+    position: relative;
+}
+#profile-container .general div
+{
+    color: var(--color10);
+    margin: 10px auto;
+    width: fit-content;
+}
+#profile-container .general .avatar
+{
+    width: 150px;
+    height: 150px;
+    background-image: url("/images/icons/android-icon-192x192.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin: 20% auto 5%;
+    background-color: var(--slight);
+    border-radius: 99px;
+}
+
+#profile-container hr
+{
+    background-color: var(--slight);
+    height: 2px;
+    width: 100%;
+}
+#profile-container .general .telegram
+{
+    display: flex;
+}
+#profile-container .general .telegram-logo
+{
+    width: 1em;
+    height: 1em;
+    margin: 0;
+    background-image: url("/images/icons/telegram-logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+#profile-container .general .telegram-text
+{
+    margin: 0;
+}
+#profile-container #logout
+{
+    display: block;
+    width: fit-content;
+    padding: 5px 10px;
+    font-weight: 600;
+    border: 3px solid red;
+    border-radius: 5px;
+    background-color: var(--slight);
+    color: red;
+    margin: 80px auto 0;
+    transition-delay: 20ms;
+    cursor: pointer;
+}
+#profile-container #logout:hover
+{
+    color: var(--color10);
+    background-color: red;
+
+}
+#profile-container .user-info
+{
+    color: var(--color10);
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 5px;
+    align-content: flex-start;
+}
+#profile-container .input-group
+{
+    margin: 30px 2%;
+    height: fit-content;
+}
+#profile-container .user-info label
+{
+    display: block;
+    color: var(--color10);
+
+}
+#profile-container .user-info input, select, textarea
+{
+    background-color: var(--slight);
+    color: var(--color30);
+    font-size: 18px;
+    border: none;
+    appearance: none;
+    width: 240px;
+    padding: 4px 5px;
+    border-radius: 5px;
+}
+#user-description
+{
+    width: 80%;
+}
+#profile-container textarea
+{
+  resize: none;
+  height: fit-content;
+  width: 100%;
+  height: 100px;
+}
+#profile-container footer
+{
+    display: block;
+    height: 50px;
+    width: 100%;
+}
+.user-info button
+{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0 20px 20px 0;
+    font-size: 16px;
+    color: var(--color30);
+    border: 2px solid var(--color30);
+    border-radius: 5px;
+    background-color: var(--slight);
+    padding: 5px;
+    cursor: pointer;
+}
+#profile-container .toggleInfo
+{
+    display: none;
+}
+@media screen and (max-device-aspect-ratio : 21 / 18)
+{
+    #profile-container .general
+    {
+        width: 100%;
+        display: none;
+    }
+    #profile-container .general.active
+    {
+        display: block;
+    }
+
+    #profile-container .user-info
+    {
+        display: none;
+        width: 100%;
+    }
+    #profile-container .user-info.active 
+    {
+        display: flex;
+    }
+    #profile-container .toggleInfo
+    {
+        display: block;
+        
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        font-size: 18px;
+        font-weight: 500;
+        padding: 10px;
+        color: var(--color30);
+        background-color: var(--slight);
+        border: 2px solid var(--color30);
+    }
+}
