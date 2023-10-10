@@ -474,7 +474,7 @@ async function topicApplyEvent(event)
     const authKey = getCookie('authKey')
     socket.on('successful application apply', ({id}) =>
     {
-        window.location.pathname = '/topics/' + id;
+        window.location.pathname = '/applications';
     })
     socket.on('failed application apply', ({reason}) =>
     {
@@ -492,6 +492,11 @@ async function topicRemoveEvent(event)
     if (!confirm('удалить заявку?')) return;
     const button = event.target;
     const applcation_id = button.dataset.id;
+
+    socket.once('successful remove application', () =>
+    {
+        location.reload('/applications')
+    })
     socket.emit('remove application', {authKey : getCookie('authKey'), application_id : applcation_id});
     
 }
