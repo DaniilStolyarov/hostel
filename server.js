@@ -73,7 +73,16 @@ app.post('/upload-image-file', formidable(), async (req, res) =>
     }
     if (!image) return;
     const randomId = v4();
-    const path = [randomId.slice(0, 2), randomId.slice(2, 4), randomId + '.' + image.name ? (image.name + '').split('.').at(-1) : 'img']
+    let path;
+    try
+    {
+        path = [randomId.slice(0, 2), randomId.slice(2, 4), randomId + '.' + (image.name.split('.')).at(-1)]
+    }
+    catch(err)
+    {
+        console.log(image)
+    }
+   
     fs.mkdirSync('./backend/images/' + path.slice(0, 2).join('/'), {recursive : true}, (err) => console.log(err))
     fs.writeFileSync(`./backend/images/${path.join('/')}`, fs.readFileSync(image.path))
     const answer = 
