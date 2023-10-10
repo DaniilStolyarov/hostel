@@ -498,5 +498,4 @@ async function topicRemoveEvent(event)
         location.reload('/applications')
     })
     socket.emit('remove application', {authKey : getCookie('authKey'), application_id : applcation_id});
-    
 }
