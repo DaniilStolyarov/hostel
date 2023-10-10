@@ -80,7 +80,7 @@ app.post('/upload-image-file', formidable(), async (req, res) =>
     }
     catch(err)
     {
-        console.log(image)
+        console.log(err)
     }
    
     fs.mkdirSync('./backend/images/' + path.slice(0, 2).join('/'), {recursive : true}, (err) => console.log(err))
