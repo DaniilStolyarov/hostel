@@ -46,5 +46,14 @@ module.exports =
             name : user.name, surname : user.surname, patronymic : user.patronymic, birthdate: user.birthdate, country : user.country, city : user.city, sex : user.sex, hee : user.hee, speciality : user.hee_speciality,  graduation : user.hee_graduation, 
             occupation : user.occupation_status, experience : user.experience, patent : user.patent, company : user.company, inn : user.inn, description : user.user_description, citizenship : user.citizenship}
         this.emit('successful fetch by key', {resUser});
+    },
+
+    async fetchApplicationsList({authKey})
+    {
+    
+        if (typeof authKey !== 'string') return;
+        const result = await db.getApplicationsOfUser(authKey);
+        if (result.rowCount = 0) return;
+        this.emit('successful fetch mine applications', ({list : result.rows}))
     }
 }

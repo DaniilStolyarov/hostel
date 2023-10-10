@@ -1,0 +1,115 @@
+#applications-container
+{
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+
+
+#applications-container header
+{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+ 
+}
+#applications-container .applications-list
+{
+    height: 80%;
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+    overflow-y: auto;
+    height: calc(90% - 50px);
+    background-color: var(--slight);
+    padding: 20px 40px;
+}
+#applications-container .application-element
+{
+    display: flex;
+    margin: 0px auto 15px;
+    position: relative;
+    justify-content: space-between;
+    
+}
+
+#applications-container .application-group
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#applications-container .application-title
+{
+    display: block;
+    color: var(--color30);
+    font-size: 18px;
+    font-weight: 600;
+}
+#applications-container .application-timestamp
+{
+    font-size: 12px;
+    font-weight: 200;
+    font-style: italic;
+}
+.cancel-button
+{
+    display: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border-radius: 100%;
+    position: relative;
+    
+    
+}
+.application-element:hover .cancel-button
+{
+    display: block;
+}
+.cancel-button::before, .cancel-button::after
+{
+    content: '';
+    width: 3px;
+    height: 25px;
+    background-color: red;
+    position: absolute;
+    
+    left: 12px;
+    top: 10px;
+    
+}
+.cancel-button::before
+{
+    transform: rotate(45deg);
+}
+.cancel-button::after
+{
+    transform: rotate(-45deg);
+}
+@media screen and (max-device-aspect-ratio : 21 / 18)
+{
+    #applications-container nav.search
+    {
+        width: 100%;
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+    #applications-container .search-group
+    {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    #applications-container .search-group input
+    {
+        width: 65%;
+    }
+    #applications-container .application-list
+    {
+        margin: 0;
+        padding: 20px;
+    }
+}

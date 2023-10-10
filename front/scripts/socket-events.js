@@ -68,7 +68,7 @@ async function main()
     document.querySelector('.topic-container .comment-submit').addEventListener('click', commentSubmitEvent)
     document.querySelector('form.user-info').addEventListener('submit', updateUserInfo)
     document.querySelector('#feed-container .search-group button').addEventListener('click', searchTopic)
-  
+    
     fetchTopics();
 }
 async function searchTopic()
@@ -183,37 +183,39 @@ function bubbleSort(list)
 }
 async function fetchTopics()
 {
-    window.socket.on('successful fetch topics list', (list) =>
+    window.socket.on('successful fetch mine applications', ({list}) =>
     {
-        const listDOM = document.querySelector('.feed-list');
+        const listDOM = document.querySelector('.applications-list');
         const newHeader = listDOM.querySelector('header').cloneNode(true);
         listDOM.querySelector('header').remove();
         list.forEach(elem =>
             {
                 const container = document.createElement('div');
-                    container.classList.add('feed-element');
+                    container.classList.add('application-element');
                 const title = document.createElement('a');
                     title.textContent = elem.name;
-                    title.classList.add('feed-title');
+                    title.classList.add('application-title');
                     title.href = "/topics/" + elem.application_id;
-                const authorNick = document.createElement('div');
-                    // todo : определять данные автора по его list.id
+                
                 const dateStamp = new Date(Date.parse(elem.timestamp));
                 const timestampDOM = document.createElement('div');
-                    timestampDOM.classList.add('feed-timestamp')
+                    timestampDOM.classList.add('application-timestamp')
                     timestampDOM.textContent = `${dateStamp.getDate()}.${dateStamp.getMonth() + 1}.${dateStamp.getFullYear()}`;
                 const feedGroup = document.createElement('div');
-                    feedGroup.classList.add('feed-group');
-                const avatar = document.createElement('div');
-                    avatar.classList.add('feed-avatar')
-                feedGroup.append(title, authorNick, timestampDOM);
-                container.append(avatar, feedGroup);
+                    feedGroup.classList.add('application-group');
+                
+                const cancelButton = document.createElement('div');
+                    cancelButton.classList.add('cancel-button');
+                    cancelButton.dataset.id = elem.application_id;
+                    cancelButton.addEventListener('click', topicRemoveEvent)
+                feedGroup.append(title,  timestampDOM);
+                container.append(feedGroup, cancelButton);
                 listDOM.prepend(container)
             }) 
             console.log(newHeader)
             listDOM.prepend(newHeader);
     }) 
-    window.socket.emit('fetch topics list')
+    window.socket.emit('fetch mine applications', {authKey : getCookie('authKey')})
 }
 async function updateUserInfo(event)
 {
@@ -483,4 +485,13 @@ async function topicApplyEvent(event)
     const topicTitle = document.querySelector('#apply-title').value 
     // todo : сделать проверку на наличие title
     socket.emit('application apply', {topicDescription, topicTitle, authKey});
+}
+
+async function topicRemoveEvent(event)
+{
+    if (!confirm('удалить заявку?')) return;
+    const button = event.target;
+    const applcation_id = button.dataset.id;
+    socket.emit('remove application', {authKey : getCookie('authKey'), application_id : applcation_id});
+    
 }

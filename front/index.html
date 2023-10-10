@@ -44,6 +44,10 @@
                 <div class="icon"></div> 
                 <div class="text">МыслЯ</div> 
             </a>
+            <a id="applications-link" href="/applications">
+                <div class="top"></div>
+                <div class="bottom"></div>
+            </a>
             <section id="nav-group">
                 <a id="apply-nav-title" href="/apply">
                 </a>
@@ -55,17 +59,7 @@
             </section>
         </nav>
         <main id="main-container">
-            <div id="confirm-container">
-                <section class="confirm-body">
-                    <div class="confirm-leader">
-                        <div class="confirm-avatar"></div>
-                        <div class="confirm-nickname">Danya</div>
-                    </div>
-                    <p>приглашает вас присоединиться к идее </p>
-                    <p class="confirm-group-title">"EFBO-01-22"</p>
-                    <button>Вступить в команду</button>
-                </section>
-            </div>
+            
             <div id="team-container">
                 <div class="team">
                     <header>Название команды</header>
@@ -83,8 +77,21 @@
                         <button type="button">Найти</button>
                     </div>
                 </nav>
-                <section class="feed-list">
+                <nav class="feed-list">
                     <header>Лента новостей</header>
+                </section>
+            </div>
+            <div id="applications-container">
+                
+                <section class="applications-list">
+                    <header>Мои заявки</header>
+                    <div class="application-element" style="display: none;">
+                        <div class="application-group">
+                            <a class="application-title" href="/topics/3">Новая заявка</a>
+                            <div class="application-timestamp">10.10.2023</div>
+                        </div>
+                        <button class="cancel-button"></button>
+                    </div>
                 </section>
             </div>
             <div class="topic-container">
@@ -127,7 +134,7 @@
                        
                     </div>
                     <button class="comment-submit">Отправить</button>
-                    <button class="toggle-view-comments" onclick="toggleCommentsView()">Предложить решение</button>
+                    <button class="toggle-view-comments" onclick="toggleCommentsView()">Ответить</button>
                     <button class="disable-comments-container">Назад</button>
                 </div>
             </div>
@@ -197,7 +204,7 @@
                                 document.querySelector('.comments .create-comment').classList.toggle('active');
                                 if (view.classList.contains('active'))
                                 {
-                                    button.textContent = "Предложить решение"
+                                    button.textContent = "Ответить"
                                     submit.classList.remove('active');
                                 }
                                 else

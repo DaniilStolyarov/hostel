@@ -42,6 +42,12 @@ module.exports =
             console.log(err)
             this.emit('application fecth failed', {errorMessage : err.message});
         }
-    }
+    },
 
+    async removeApplication({authKey, application_id})
+    {
+        
+        db.removeApplication(authKey, application_id);
+        this.emit('successful remove application')
+    }
 }

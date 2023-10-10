@@ -165,13 +165,13 @@ async function initEditors()
         }
     }
     const optionsApplyEditor = {};
-    Object.assign(optionsApplyEditor, editorOptions, {holder: "apply-form", placeholder : "Опишите свою идею"})
+    Object.assign(optionsApplyEditor, editorOptions, {holder: "apply-form", placeholder : "Текст вашей заявки"})
     const applyEditor = new EditorJS(optionsApplyEditor);
     await applyEditor.isReady; 
     window.applyEditor = applyEditor;
 
     const optionsCommentEditor = {};
-    Object.assign(optionsCommentEditor, editorOptions, {holder: "myComment", placeholder : "Предложите своё развитие идеи"})
+    Object.assign(optionsCommentEditor, editorOptions, {holder: "myComment", placeholder : "Ответьте на заявку"})
     const commentEditor = new EditorJS(optionsCommentEditor);
     await commentEditor.isReady;
     window.commentEditor = commentEditor;

@@ -46,6 +46,9 @@ function toggleMainContainer(path = location.pathname, isPopstate = false)
         case '/profile':
             togglePage(document.querySelector('#profile-container'))
             break;
+        case '/applications':
+            togglePage(document.querySelector('#applications-container'))
+            break;
         default:
             if (path.includes('topics')) togglePage(document.querySelector('.topic-container'), 'flex');
             else if (path.includes('teams')) togglePage(document.querySelector('#team-container'))

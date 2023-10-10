@@ -126,7 +126,11 @@ async function addApplication(title, content, author_id)
         console.log(err)
     }
 }
-
+async function removeApplication(authKey, application_id)
+{
+    return client.query('DELETE FROM APPLICATIONS WHERE AUTHOR_ID = (select user_id from connections where session = $1::uuid) AND APPLICATION_ID = $2::BIGINT',
+    [authKey, application_id])
+}
 
 async function addMessage(author_id, application_id, content)
 {
@@ -184,6 +188,10 @@ async function getLastGroup()
 {
     return client.query('SELECT * FROM APPLICATIONS ORDER BY application_id DESC LIMIT 1');
 }
+async function getApplicationsOfUser(authKey)
+{
+    return client.query('SELECT NAME, APPLICATION_ID, TIMESTAMP FROM APPLICATIONS WHERE AUTHOR_ID = (select user_id from connections where session = $1::uuid)', [authKey])
+}
 async function getMessagesByTopicId(application_id)
 {
     return client.query('SELECT * FROM MESSAGES WHERE APPLICATION_ID = $1::BIGINT', [application_id])
@@ -204,7 +212,7 @@ async function updateUserInfo(userInfo)
 module.exports =
 {
     getApplicationById, getUserByEmail, getUserById, addUser, getUserBySession, addApplication, getAuthKey, updateUserInfo, upsertConnection, getLastGroup, 
-    addMessage, getMessagesByTopicId, /*getLastTopics, getTopicTitles,*/ 
+    addMessage, getMessagesByTopicId, getApplicationsOfUser, removeApplication /*getLastTopics, getTopicTitles,*/ 
 }
 if (process.argv[2] == 'initAll')
 {

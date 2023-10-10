@@ -5,6 +5,7 @@
 @import url('./pages/feed.css');
 @import url('./pages/team.css');
 @import url('./pages/confirm.css');
+@import url('./pages/appllications.css');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 *
 {
@@ -233,3 +234,29 @@ html, body
     transform: rotate(90deg);
 }
 
+#applications-link
+{
+    width: 50px;
+    height: 100%;
+    position: relative;
+    
+    
+}
+#applications-link .top, #applications-link .bottom
+{
+    background-color: var(--color30);
+    width: 15px;
+    height: 18px;
+    border-radius: 10%;
+    position: absolute;
+ 
+    
+}
+#applications-link .top
+{
+    transform: translate(20px, 12px);
+}
+#applications-link .bottom
+{
+    transform: translate(15px, 18px);
+}

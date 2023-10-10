@@ -13,6 +13,9 @@ function handleEvents(io)
         socket.on('application fetch', applications.fetch.bind(socket));
         socket.on('fetch user', users.fetch.bind(socket));
         socket.on('fetch by key', users.fetchByKey.bind(socket));
+        socket.on('fetch mine applications', users.fetchApplicationsList.bind(socket));
+        socket.on('remove application', applications.removeApplication.bind(socket));
+
     })
 }
 function handleEvents_old(io)
