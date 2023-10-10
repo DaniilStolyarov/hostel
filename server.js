@@ -76,7 +76,7 @@ app.post('/upload-image-file', formidable(), async (req, res) =>
     let path;
     try
     {
-        path = [randomId.slice(0, 2), randomId.slice(2, 4), randomId + '.' + (image.name.split('.')).at(-1)]
+        path = [randomId.slice(0, 2), randomId.slice(2, 4), randomId + '.' + (image.name.split('.')).[-1]]
     }
     catch(err)
     {
