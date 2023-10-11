@@ -96,7 +96,7 @@ async function addUser({email, admin = false, password, phoneNum, telegram, desc
         $9::bigint, $10::text, $11::text, $12::text
     )`, 
     [
-        email, admin, new Date (Date.now()).toLocaleString(),
+        email, admin, new Date (Date.now()),
         password, phoneNum, telegram, description, avatar_id,
         room, name, surname, patronymic
     ])
