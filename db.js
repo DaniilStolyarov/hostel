@@ -119,7 +119,7 @@ async function addApplication(title, content, author_id)
             $3::text,
             $4::bigint,
             $5::boolean
-        ) RETURNING APPLICATION_ID`, [new Date (Date.now()).toLocaleString(), title, content, author_id, true])
+        ) RETURNING APPLICATION_ID`, [new Date (Date.now()), title, content, author_id, true])
     }
     catch(err)
     {
@@ -146,7 +146,7 @@ async function addMessage(author_id, application_id, content)
         $2::text,
         $3::TIMESTAMP WITHOUT TIME ZONE,
         $4::bigint
-    )`, [author_id, content, new Date (Date.now()).toLocaleString(), application_id])
+    )`, [author_id, content, new Date (Date.now()), application_id])
 }
 
 async function getApplicationById(id)
