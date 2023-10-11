@@ -411,14 +411,7 @@ function loadTopic(topicID)
             document.querySelector('.topic-container .description .text').id = topic.application_id;
             document.querySelector('.topic-container .info .author-info div').textContent = author.name;
             document.querySelector('.topic-container .info .date-info div').textContent = `${dateStamp.getDate()}.${dateStamp.getMonth() + 1}.${dateStamp.getFullYear()}`
-            const teamLink = document.querySelector('.topic-container .info .team-info div')
-            teamLink.textContent = title;
-            teamLink.href = `/teams/${topic.application_id}`
-            teamLink.style.cursor = 'pointer';
-            teamLink.addEventListener('click', (event) =>
-            {
-                location.replace(teamLink.href)
-            })
+            
             const authorAvatarDOM = document.querySelector('.topic-container .author-icon');
             authorAvatarDOM.style["background-image"]= `url(/images/${author.avatar_id})`
             authorAvatarDOM.classList.add('disabled')
