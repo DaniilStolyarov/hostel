@@ -17,11 +17,14 @@
     outline: none;
     border: none;
     text-decoration: none;
+
+}
+:root
+{
     --color60: rgb(14, 14, 23);
     --color30: rgb(255, 196, 0);
     --color10:white;
     --slight: rgb(26, 28, 36);
-  
 }
 a
 {
@@ -259,4 +262,27 @@ html, body
 #applications-link .bottom
 {
     transform: translate(15px, 18px);
+}
+
+#theme-toggle
+{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: 5px 10px;
+    border-radius: 100%;
+    cursor: pointer;
+    background-color: var(--color30);
+    transform: rotateZ(-20deg);
+}
+#theme-toggle::after
+{
+    content: ' ';
+    display: block;
+    background-color: var(--slight);
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+
+    transform: translate(10px, 0);
 }

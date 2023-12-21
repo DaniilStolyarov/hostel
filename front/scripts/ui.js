@@ -50,7 +50,13 @@ async function main()
         comments.style.display = "none";
     })
     initEditors();
-   
+    document.querySelector("#theme-toggle").addEventListener("click", () => 
+    {
+        localStorage.setItem("theme", localStorage.getItem("theme") === "light" ? "dark" : "light")
+        location.reload();
+    })
+    enableCurrentColorTheme();
+    
 }
 function getId(input)
 {
@@ -176,3 +182,20 @@ async function initEditors()
     await commentEditor.isReady;
     window.commentEditor = commentEditor;
 }   
+
+function enableCurrentColorTheme()
+{
+    // --color60: rgb(14, 14, 23);
+    // --color30: rgb(255, 196, 0);
+    // --color10:white;
+    // --slight: rgb(26, 28, 36);
+    const isLightTheme = localStorage.getItem("theme") == "light";
+    if (isLightTheme)
+    {
+        document.documentElement.style.setProperty('--color60', '#fbf8cc')
+        document.documentElement.style.setProperty('--color30', '#d62828')
+        document.documentElement.style.setProperty('--slight', '#3a0ca3')
+        document.documentElement.style.setProperty('--color10', 'black')
+
+    }
+}
